@@ -138,9 +138,10 @@ def savenpy(id, annos, filelist, data_path, prep_folder):
         for nod in this_nodule:
             # 如果标签文件给的是世界坐标，则用这一行
             # pos = worldToVoxelCoord(nod[:3][::-1], origin=origin, spacing=spacing)
+            # label.append(np.concatenate([pos, [nod[3] / spacing[1]]]))
             # 如果标签文件给的是像素坐标，做一下xyz转换到zyx即可
             pos = nod[:3][::-1]
-            label.append(np.concatenate([pos, [nod[3] / spacing[1]]]))
+            label.append(np.concatenate([pos, [nod[3]]]))
         if len(label) == 0:
             label2 = np.array([[0, 0, 0, 0]])
         else:
