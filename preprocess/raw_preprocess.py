@@ -122,9 +122,10 @@ def preprocess_pipeline(id, annos, filelist, data_path, prep_folder):
         for nod in this_nodule:
             # 如果标签文件是世界坐标，需要进行转换
             # pos = worldToVoxelCoord(nod[:3][::-1], origin=origin, spacing=spacing)
+            # label.append(np.concatenate([pos, [nod[3] / spacing[1]]]))
             # 如果标签文件是像素坐标，只需要对xyz换成zyx即可
             pos = nod[:3][::-1]
-            label.append(np.concatenate([pos, [nod[3] / spacing[1]]]))
+            label.append(np.concatenate([pos, [nod[3]]]))
         if len(label) == 0:
             label2 = np.array([[0, 0, 0, 0]])
         else:
@@ -168,7 +169,7 @@ if __name__ == '__main__':
     partial_savenpy = partial(preprocess_pipeline, annos=alllabel, filelist=filelist, data_path=data_path,
                               prep_folder=prep_folder)
 
-    N = 16
+    N = len(filelist)
     _ = pool.map(partial_savenpy, range(N))
     pool.close()
     pool.join()
