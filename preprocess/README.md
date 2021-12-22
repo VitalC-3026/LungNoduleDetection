@@ -6,9 +6,9 @@ preprocess.py运行即可。preprocess.py和step1.py配合使用，包括处理�
 
 1. prep_folder：处理后结果存放的路径
 2. data_path：需要处理的dicom数据存放的地方。填入此的路径下有每一套LC015数据的文件夹，每个文件夹中存放该套CT的所有dicom文件。
-3. alllabelfiles：这里存放的是一个excel表格，如果是其他格式，需要修改174行pandas读取的方式。我们的excel表格中，抬头是seriesuid、coordX、coordY、coordZ、length、id。我们只需要id和结节中心xyz坐标、结节长径。因此176行获取表格是1:6，filelist是获取所有ct名字，因此是最后一列，见178行的list(alllabel[:, **-1**])。同一套ct不同结节的id名字不需要修改，如LC01501001有3个结节，那这3个结节的数据分别各有一行，id这一列都为LC01501001。
+3. alllabelfiles：这里存放的是一个excel表格，如果是其他格式，需要修改175行pandas读取的方式。我们的excel表格中，抬头是seriesuid、coordX、coordY、coordZ、length、id。我们只需要id和结节中心xyz坐标、结节长径。因此177行获取表格是1:6，filelist是获取所有ct名字，因此是最后一列，见179行的list(alllabel[:, **-1**])。同一套ct不同结节的id名字不需要修改，如LC01501001有3个结节，那这3个结节的数据分别各有一行，id这一列都为LC01501001。
 
-目前的代码开了多线程，可以根据运行环境修改183的Pool(8)这个数字，设置适合的线程数。建议不要太多，容易卡死。
+目前的代码开了多线程，可以根据运行环境修改184行的Pool(8)这个数字，设置适合的线程数。建议不要太多，容易卡死。
 
 处理后的文件夹中，同一套CT会得到如下5个文件夹。
 
